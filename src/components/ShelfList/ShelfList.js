@@ -3,9 +3,12 @@ class ShelfList extends Component{
  
     render(){
         return(
-        <div>
+        <>
             <h1>Hi I'm A Shelf</h1>
-        </div>
+            <input placeholder="description"/>
+            <input placeholder="image_url"/>
+            <button>Add to Shelf</button>
+        </>
         )
     
     }
