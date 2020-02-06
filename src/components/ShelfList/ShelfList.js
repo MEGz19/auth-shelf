@@ -1,13 +1,30 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
 class ShelfList extends Component{
+
+    componentDidMount(){
+        this.props.dispatch({
+            type: `GET_ITEMS`
+        })
+    }
  
     render(){
         return(
         <div>
-            <h1>Hi I'm A Shelf</h1>
+            {this.props.reduxStore.items.items.map((foodItem)=>{
+                return <p key={foodItem.id}>{foodItem.description}</p>
+            })}
         </div>
         )
     
     }
 }
-export default ShelfList
+
+const mapStateToProps = (reduxStore) => {
+    return({
+        reduxStore
+    })
+}
+
+
+export default connect(mapStateToProps)(ShelfList)

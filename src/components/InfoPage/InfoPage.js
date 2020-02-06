@@ -9,8 +9,9 @@ import ShelfList from '../ShelfList/ShelfList'
 const InfoPage = () => (
   <div>
     <p>
-      <ShelfList />
+      Shelf Page
     </p>
+    <ShelfList />
   </div>
 );
 
