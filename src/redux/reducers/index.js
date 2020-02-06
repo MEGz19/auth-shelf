@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
+import addItem from './addReducer.js'
 import items from './itemsReducer'
 
 // rootReducer is the primary reducer for our entire project
