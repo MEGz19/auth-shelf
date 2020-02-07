@@ -17,6 +17,17 @@ class ShelfList extends Component {
         this.handleId();
     }
 
+    deleteItem = (itemID) => {
+        console.log(`HEYOOOoooooooooooooooooooooooooooooooooooooooooO`);
+        this.props.dispatch({
+            type: 'DELETE_ITEMS',
+            payload: itemID
+        })
+       
+        
+        
+    }
+
     handleDes = (event) => {
         this.setState({
             description: event.target.value
@@ -60,7 +71,18 @@ class ShelfList extends Component {
 
                 <div>
                     {this.props.reduxState.items.items.map((foodItem) => {
-                        return <p key={foodItem.id}>{foodItem.description}</p>
+                        if (foodItem.user_id === this.state.user_id) {
+                            return (
+                                <>
+                                    <span key={foodItem.id}>
+                                        {foodItem.description}
+                                    </span>
+                                    <span><button onClick={() => {this.deleteItem(foodItem.id)}}>Delete</button></span>
+                                </>
+                            )
+                        }
+                        else { return <p key={foodItem.id}>{foodItem.description}</p> }
+
                     })}
                 </div>
 
