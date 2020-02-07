@@ -10,10 +10,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.user);
     
     
-    let queryText = `SELECT * FROM "item"
-                    WHERE user_id = $1`
-    let values = [req.user.id]
-    pool.query(queryText, values)
+    let queryText = `SELECT * FROM "item"`
+    pool.query(queryText)
     .then(result => {
         // console.log(result);
         
@@ -30,10 +28,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     let description = req.body.description;
     let image_url = req.body.image_url;
-    let user_id = req.body.user_id;
+    let user_id = req.user.id;
+    console.log(req.user);
+    
 
     let queryText = `
     INSERT INTO "item" ("description", "image_url", "user_id")
@@ -56,7 +56,18 @@ router.post('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
-
+    console.log(req.params.id);
+    res.sendStatus(200)
+    let queryText = `
+    DELETE FROM "item" 
+    WHERE id=$1;
+    `
+    pool.query(queryText,[req.params.id])
+    .then((result) => {
+        res.sendStatus(200)
+    }).catch((err) => {
+        res.sendStatus(500)
+    })
 });
 
 
